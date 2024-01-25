@@ -36,8 +36,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         """Create a new recipe"""
         serializer.save(user=self.request.user)
         
-class TagViewSet(mixins.ListModelMixin,
-                viewsets.GenericViewSet):
+class TagViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet, mixins.DestroyModelMixin):
     """Manage tags in the database"""
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -50,5 +49,4 @@ class TagViewSet(mixins.ListModelMixin,
     
     def perform_create(self, serializer):
         """Create a new tag"""
-        serializer.save(user=self.request.user)
-    
+        serializer.save(user=self.request.user)    
